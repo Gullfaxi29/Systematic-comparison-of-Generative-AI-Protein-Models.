@@ -1,0 +1,16 @@
+#!/bin/bash
+#PBS -N SELF_CONSISTENT_SCORING_REFOLDS
+#PBS -M alexander.barnett@utas.edu.au
+#PBS -m abe                          
+#PBS -l select=1:ncpus=1:mem=32gb
+#PBS -l walltime=94:00:00
+#PBS -o /scratch/alexb2/generative_protein_models/analyses/1.inference_and_designability
+#PBS -j oe
+
+cd /scratch/alexb2/generative_protein_models/analyses/1.inference_and_designability
+module load Anaconda3
+source activate pyrosetta
+
+python self_consistent_scoring.py --final_designs /scratch/alexb2/generative_protein_models/raw_data/unconditional_generation/14-200/refolds/ --initial_designs /scratch/alexb2/generative_protein_models/raw_data/unconditional_generation/14-200/final_designs/ --discarded_designs /scratch/alexb2/generative_protein_models/raw_data/unconditional_generation/14-200/dummy/ --output_path /scratch/alexb2/generative_protein_models/share/refold_self_consistent_scoring
+
+

@@ -1,0 +1,21 @@
+#!/bin/bash
+#PBS -N maxcluster
+#PBS -M alexander.barnett@utas.edu.au
+#PBS -m abe                          
+#PBS -l select=1:ncpus=4:mem=64gb
+#PBS -l walltime=96:00:00
+#PBS -o /scratch/alexb2/generative_protein_models/analyses/3.diversity_and_novelty/diversity_maxcluster
+#PBS -j oe
+
+models=('RFdiffusion' 'Genie' 'ProteinSGM' 'FoldingDiff' 'FrameDiff' 'Chroma' 'Protpardelle' 'Protein-Generator' 'EvoDiff' 'RITA' 'ProGen2' 'ProtGPT2' 'ESM-Design')
+#models=('PISCES')
+for model in "${models[@]}"
+do
+    echo $model
+    bash /scratch/alexb2/generative_protein_models/analyses/3.diversity_and_novelty/diversity_maxcluster/clustering.sh /scratch/alexb2/generative_protein_models/raw_data/unconditional_generation/14-200/final_designs $model
+    #bash /scratch/alexb2/generative_protein_models/analyses/3.diversity_and_novelty/diversity_maxcluster/clustering.sh /scratch/alexb2/generative_protein_models/raw_data/PISCES $model
+done
+
+
+
+

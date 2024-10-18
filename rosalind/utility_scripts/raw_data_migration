@@ -1,0 +1,130 @@
+#for interactive use
+
+for file in ./*zip
+do
+  unzip $file
+done
+
+for dir in all_len*/; do
+    if [ -d "$dir" ]; then
+        echo "Processing directory: $dir"
+        mv "$dir"* .
+    fi
+done
+
+for file in ./*refold.pdb
+do
+    bn=$(basename "$file") 
+    mv $file ./refolds/$bn
+done
+
+for file in *.pdb
+do
+    bn=$(basename "$file") 
+    mv $file ./final_designs/$bn
+done
+
+
+for file in *; do
+  # Check if the item is a file
+  if [[ -f "$file" ]]; then
+    # Extract the prefix before the first underscore
+    prefix="${file%%_len*}"
+    # Print the prefix
+    echo "$prefix"
+  fi
+# Sort and get unique prefixes
+done | sort -u
+
+
+old_prefix="protein_generator"
+new_prefix="proteingenerator"
+
+# Loop through all files that start with the old prefix in the current directory
+for file in ${old_prefix}*; do
+  # Check if the item is a file
+  if [[ -f "$file" ]]; then
+    # Create the new filename by replacing the old prefix with the new prefix
+    new_file="${new_prefix}${file#${old_prefix}}"
+    
+    # Rename the file
+    mv "$file" "$new_file"
+    echo "Renamed $file to $new_file"
+  fi
+done
+
+
+
+for file in *; do
+  # Check if the item is a file
+  if [[ -f "$file" ]]; then
+    # Convert the filename to lowercase
+    lower_file=$(echo "$file" | tr '[:upper:]' '[:lower:]')
+    
+    # Only rename if the lowercase name is different
+    if [[ "$file" != "$lower_file" ]]; then
+      mv "$file" "$lower_file"
+      echo "Renamed $file to $lower_file"
+    fi
+  fi
+done: $dir"
+        mv "$dir"* .
+    fi
+done
+
+for file in ./*refold.pdb
+do
+    bn=$(basename "$file") 
+    mv $file ./refolds/$bn
+done
+
+for file in *.pdb
+do
+    bn=$(basename "$file") 
+    mv $file ./final_designs/$bn
+done
+
+
+for file in *; do
+  # Check if the item is a file
+  if [[ -f "$file" ]]; then
+    # Extract the prefix before the first underscore
+    prefix="${file%%_len*}"
+    # Print the prefix
+    echo "$prefix"
+  fi
+# Sort and get unique prefixes
+done | sort -u
+
+
+old_prefix="protein_generator"
+new_prefix="proteingenerator"
+
+# Loop through all files that start with the old prefix in the current directory
+for file in ${old_prefix}*; do
+  # Check if the item is a file
+  if [[ -f "$file" ]]; then
+    # Create the new filename by replacing the old prefix with the new prefix
+    new_file="${new_prefix}${file#${old_prefix}}"
+    
+    # Rename the file
+    mv "$file" "$new_file"
+    echo "Renamed $file to $new_file"
+  fi
+done
+
+
+
+for file in *; do
+  # Check if the item is a file
+  if [[ -f "$file" ]]; then
+    # Convert the filename to lowercase
+    lower_file=$(echo "$file" | tr '[:upper:]' '[:lower:]')
+    
+    # Only rename if the lowercase name is different
+    if [[ "$file" != "$lower_file" ]]; then
+      mv "$file" "$lower_file"
+      echo "Renamed $file to $lower_file"
+    fi
+  fi
+done

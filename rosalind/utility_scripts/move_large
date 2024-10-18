@@ -1,0 +1,20 @@
+
+source_dir="/scratch/alexb2/generative_protein_models/raw_data/unconditional_generation/14-150/whole_structures"
+target_dir="$source_dir/larger"
+
+# Create the target subdirectory if it doesn't exist
+mkdir -p "$target_dir"
+
+# Loop through each file in the source directory that matches the pattern
+for file in "$source_dir"/*len*.pdb; do
+    # Extract the number after "len"
+    len=$(echo "$file" | sed -n 's/.*len\([0-9]\+\)_.*/\1/p')
+    
+    # Check if the extracted number is greater than 150
+    if [ "$len" -gt 150 ]; then
+        echo $len
+        echo $file
+        # Move the file to the target subdirectory
+        mv "$file" "$target_dir/"
+    fi
+done

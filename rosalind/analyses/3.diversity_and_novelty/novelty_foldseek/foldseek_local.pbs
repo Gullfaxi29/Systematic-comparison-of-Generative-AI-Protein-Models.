@@ -1,0 +1,38 @@
+#!/bin/bash
+#PBS -N foldseek
+#PBS -M alexander.barnett@utas.edu.au
+#PBS -m abe                          
+#PBS -l select=1:ncpus=16:mem=128gb
+#PBS -l walltime=96:00:00
+#PBS -o /scratch/alexb2/generative_protein_models/analyses/3.diversity_and_novelty/novelty_foldseek
+#PBS -j oe
+
+module load Anaconda3
+source activate foldseek
+cd /scratch/alexb2/generative_protein_models/analyses/3.diversity_and_novelty/novelty_foldseek
+
+#mapfile -t inputs < <(find /scratch/alexb2/generative_protein_models/raw_data/pisces_pdb/ -maxdepth 1 -type f -name "*.pdb" 2>/dev/null)
+
+#chunk_size=1000
+#batch_number=1
+#for ((i = 0; i < 8316; i+=chunk_size)); do
+#    chunk=("${inputs[@]:i:chunk_size}")
+#    foldseek easy-search "${chunk[@]}" /scratch/alexb2/generative_protein_models/raw_data/foldseekESMAtlas30 pisces_pdb_$batch_number tmp --alignment-type 1 --format-output "query,target,alntmscore,qtmscore,ttmscore,lddt,prob"
+#    batch_number=$((batch_number + 1))
+#done
+
+
+#based on the foldseek repo, memory needed is ~ 8 byte * 37 x 10^6 (sequences) * #350 (average protein length) ~= 104 GB 
+#inputs=$(find /scratch/alexb2/generative_protein_models/raw_data/unconditional_generation/14-200/final_designs/ -type f -name "rita_*.pdb" 2>/#dev/null | head -n 10)
+
+for ((i=14; i<=200; i++))
+do
+    if [ ! -f "/scratch/alexb2/generative_protein_models/analyses/3.diversity_and_novelty/novelty_foldseek/len$i" ]
+    then
+        echo "bla"
+        inputs=$(find /scratch/alexb2/generative_protein_models/raw_data/unconditional_generation/14-200/final_designs/ -maxdepth 1 -type f -name "*len${i}_*.pdb" 2>/dev/null)
+        foldseek easy-search $inputs /scratch/alexb2/generative_protein_models/raw_data/foldseekESMAtlas30 len$i tmp --alignment-type 1 --format-output "query,target,alntmscore,qtmscore,ttmscore,lddt,prob"
+    else
+        echo "len$i already processed"
+    fi
+done

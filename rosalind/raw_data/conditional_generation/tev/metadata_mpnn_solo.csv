@@ -1,0 +1,3 @@
+gen_model,model,input_file_path,task,Timestamp,gpu,output_file_path,num_designs,wall_time_task
+NA,ProteinMPNN,NA,Sequence Redesign (fixed motif),2024-06-24 01:44:48.418461,T4 GPU,/content/drive/MyDrive/Generative_Models/IL10_scaffolding/MPNN_solo_redesigns/seqs/tev.fa,100,172.54332041740417 Seconds
+NA,ProteinMPNN,NA,Sequence Redesign (fixed motif),2024-06-24 02:03:04.429074,T4 GPU,/content/drive/MyDrive/Generative_Models/IL10_scaffolding/MPNN_solo_redesigns/seqs/il10.fa,100,145.08001136779785 Seconds

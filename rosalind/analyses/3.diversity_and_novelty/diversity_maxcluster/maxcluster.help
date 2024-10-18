@@ -1,0 +1,180 @@
+
+    maxcluster 0.6.6
+
+    Calculates MaxSub for PDB models / list of models.
+    Provides clustering routines for lists of models.
+
+USAGE:
+
+    maxcluster -e [file] -p [file]  (Pairwise)
+    maxcluster -l [file]            (All-verses-all)
+    maxcluster -e [file] -l [file]  (List processing)
+
+ARGUMENTS:
+
+    -e [file]   PDB experiment
+
+    -p [file]   PDB prediction
+
+OR
+
+    -l [file]   File containing a list of PDB model fragments
+
+OR
+
+    -e [file]   PDB experiment
+
+    -l [file]   File containing a list of PDB model fragments
+
+OPTIONS:
+
+    -h          Print this help and exit
+
+    -help       Print extended help and exit
+
+    -version    Print version and exit
+
+    -L [n]      Log level (default is 4 for single MaxSub, 1 for lists)
+
+    -d [f]      The distance cut-off for search (default auto-calibrate)
+
+    -N [n]      The normalisation length for TM score (default is length of experiment)
+
+    -rmsd       Perform only RMSD fit
+
+    -i [n]      MaxSubDom iterations (default = 1)
+
+    -in         Sequence independant mode
+
+CLUSTERING OPTIONS:
+
+    -C [n]      Cluster method:
+                  0 - No clustering
+                  1 - Single linkage
+                  2 - Average linkage
+                  3 - Maximum linkage
+                  4 - Neighbour pairs (min size)
+                  5 - Neighbour pairs (absolute size)
+                (default = 5)
+
+    -T [f]      Initial clustering threshold (default RMSD = 4; MaxSub = 0.5)
+
+    -Tm [f]     Maximum clustering threshold (default RMSD = 8; MaxSub = 0.8)
+
+    -a [f]      Clustering threshold adjustment (default RMSD = 0.2; MaxSub = 0.05)
+
+    -is [n]     Initial cluster size (default = 50)
+
+    -ms [n]     Minimum cluster size (default = 5)
+
+    -s [f]      3D-jury score threshold (default = 0.2)
+
+    -P [n]      3D-jury pair threshold (default = 20)
+
+
+    -log [file] Log file
+
+    -av         Print average for all-vs-all
+
+    -nosort     Do not perform sort
+
+    -TSF [f]    Set the MaxSub threshold scale factor for auto-calibration (default = 1.0)
+
+    -rankMS     Rank MaxSub results by MaxSub (default is TM unless iter > 1)
+
+    -noscore    Do not produce MaxSub for poor alignments
+
+    -bb         Perform RMSD fit using backbone atoms
+
+    -gdt [f]    Perform Global Distance Test (GDT) at 1/4x, 1/2x, 1x & 2x cut-off.
+                GDT cut-off is optional (default = 4)
+
+    -urmsd      Generate rotation matrix using URMSD fit
+
+    -O [n]      MaxSubDom output options:
+                  0 - Output MaxSub atoms (default)
+                  1 - Output all atoms spanning MaxSub
+                  2 - Output all atoms
+
+    -mS [f]     Minimum score for MaxSub iteration (relative to remaining matched pairs)
+                (default = 0)
+
+    -mP [n]     Minimum pairs for MaxSub iteration (default = 4)
+
+    -maxRMSD    Find MaxSub set with RMSD below threshold
+
+    -TM         Find MaxSub set with highest TM-score
+
+    -matrix     Output sequence independance similarity matrix to file
+
+    -opt [n]    Mamimum number of iterative optimisations (default = 20 : 0)
+
+    -open [f]   Gap opening penalty for iterative optimisation (default = -0.6)
+
+    -aff [f]    Gap affine penalty for iterative optimisation (default = 0)
+
+    -seed [n]   Create seed using ( mapped pairs / 2^i ) where { i=0 .. n } (default = 2)
+
+    -all        Print all atoms for -super option (default is C-alpha)
+
+    -super [n]  Print superposition file for chain vs. list (top n models)
+
+    -nourmsd    Disable URMSD
+
+    -noalign    Disable superposition output to align.rsm
+
+    -noprogress Disable progress count
+
+    -lws [n]    Line wrap size for alignment output (default = 60)
+
+CLUSTER FILE OPTIONS:
+
+    -F [file]   Cluster distance file
+
+                Size record format:
+                SIZE : <N>
+                E.G. 'SIZE : 10' means there will be distance records for
+                IDs = { 1 .. 10 }
+
+                Distance record format:
+                DIST : <ID> <ID> <Distance>
+                E.G. 'DIST : 1 2 0.0062' means distance from 1 to 2 is 0.0062
+                Distance must be zero (identical) or higher
+
+                If the cluster file is present only clustering is
+                performed using the specified threshold
+
+OR
+
+    -M [file]   MaxSub transformation file
+
+                Size record format:
+                SIZE : <N>
+                E.G. 'SIZE : 10' means there will be distance records for IDs = { 1 .. 10 }
+
+                PDB record format:
+                PDB  : <ID> <name>
+                E.G. 'PDB  : 1 model1.pdb'
+
+                Transformation format:
+                TRANS: <ID> <ID> <MaxSub> <MaxSub> <Pairs> <CofM 1> <CofM 2> <Rot Matrix>
+                E.G. 'TRANS: 1 2 0.9 0.9 9 30.1 25.7 81.9 30.5 26.6 23.8 0.281 -0.679 0.679 -0.648 -0.655 -0.387 0.708 -0.331 -0.624'
+
+                Position format:
+                POS  : <ID> <ID> <Residue pairs ...>
+                E.G. 'POS  : 1:1 2:2 3:3 4:4'
+
+    -R [file]   Print distance results to file in a format readable by -M / -F option
+
+    -Rl [file]  Print lite distance results to file
+
+    -Ru [file]  Print UMRSD distance results to file
+
+CONTACT OPTIONS:
+
+   -contact     Perform % native contacts calculation
+
+   -dist [f]    Distance for CB-CB contact (default = 7.5)
+
+   -gap [n]     Minimum sequence separation for contact residues (default = 5)
+

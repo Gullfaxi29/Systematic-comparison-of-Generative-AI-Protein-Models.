@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -N 14_200_ROSETTA_SURVEY_AA_Refolds
+#PBS -M alexander.barnett@utas.edu.au
+#PBS -m abe                          
+#PBS -l select=1:ncpus=1:mem=64gb
+#PBS -l walltime=94:00:00
+#PBS -o /scratch/alexb2/generative_protein_models/analyses/2.feasibility/rosetta_survey
+#PBS -j oe
+
+cd /scratch/alexb2/generative_protein_models/analyses/2.feasibility/rosetta_survey
+module load Anaconda3
+source activate pyrosetta
+#/scratch/alexb2/generative_protein_models/raw_data/pisces_pdb/
+#/scratch/alexb2/generative_protein_models/raw_data/unconditional_generation/14-150/whole_structures/
+python rosetta_survey.py --path_to_dataset /scratch/alexb2/generative_protein_models/raw_data/unconditional_generation/14-200/refolds/ --output_dir /scratch/alexb2/generative_protein_models/share --output_prefix aa_refolds --res_features res_no,res,prev_res,next_res,phi_angle,psi_angle,w_angle,chi_1,chi_2,chi_3,chi_4,N_CA,CA_C,C_N,C_O --chain_features ss,fa_atr,fa_rep,fa_sol,fa_intra_rep,fa_intra_sol_xover4,lk_ball_wtd,fa_elec,pro_close,hbond_sr_bb,hbond_lr_bb,hbond_bb_sc,hbond_sc,dslf_fa13,omega,fa_dun,p_aa_pp,yhh_planarity,ref,rama_prepro
+
+
